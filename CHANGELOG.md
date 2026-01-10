@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.0.3](https://github.com/nnnkkk7/memtui/compare/v0.0.2...v0.0.3) - 2026-01-10
+- ci: replace formula by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/11
+
 ## [v0.0.2](https://github.com/nnnkkk7/memtui/compare/v0.0.1...v0.0.2) - 2026-01-10
 - docs: add brew command by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/8
 
