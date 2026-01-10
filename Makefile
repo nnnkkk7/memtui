@@ -1,10 +1,10 @@
-.PHONY: all ci build test clean install lint fmt help install-lint
+.PHONY: all ci build test test-e2e clean install lint fmt help install-lint
 
 # Build variables
 BINARY_NAME := memtui
 VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
 BUILD_TIME := $(shell date -u '+%Y-%m-%d_%H:%M:%S')
-LDFLAGS := -ldflags "-s -w -X main.Version=$(VERSION) -X main.BuildTime=$(BUILD_TIME)"
+LDFLAGS := -ldflags "-s -w -X main.Version=$(VERSION)"
 GO := go
 
 # golangci-lint version
@@ -13,8 +13,8 @@ GOLANGCI_LINT_VERSION := v2.1.6
 # Default target
 all: test lint build
 
-## ci: Run CI checks (install-lint + lint + test)
-ci: install-lint lint test
+## ci: Run CI checks (install-lint + lint + test + test-e2e)
+ci: install-lint lint test test-e2e
 
 # Build the binary
 build:
@@ -27,6 +27,10 @@ test:
 # Run tests with coverage
 test-cover:
 	$(GO) test -cover ./...
+
+# Run e2e tests (requires running Memcached)
+test-e2e:
+	$(GO) test -v -tags e2e ./tests/e2e/...
 
 # Generate coverage report
 coverage:

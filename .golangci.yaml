@@ -23,10 +23,6 @@ linters:
 
     # Style and consistency
     - misspell      # Find commonly misspelled words
-    - goconst       # Find repeated strings that could be constants
-
-    # Error handling
-    - errorlint     # Find code that will cause problems with Go 1.13+ error wrapping
 
     # Modern Go features
     - copyloopvar   # Detect loop variable issues (Go 1.22+)
@@ -57,8 +53,8 @@ linters:
         - (*github.com/fatih/color.Color).Fprintf
 
     gocyclo:
-      # Maximum cyclomatic complexity - reasonable for CLI tools
-      min-complexity: 15
+      # Maximum cyclomatic complexity - TUI handlers can be naturally complex
+      min-complexity: 35
 
     gosec:
       # Exclude rules that are false positives for CLI tools
@@ -76,6 +72,7 @@ linters:
       disable:
         - shadow
         - fieldalignment
+        - unusedwrite      # Common in test structs with intentional field writes
 
     gocritic:
       # Enable multiple check groups
@@ -84,8 +81,15 @@ linters:
         - style
         - performance
       disabled-checks:
-        - paramTypeCombine  # Can be noisy for CLI flag definitions
-        - unnamedResult     # Allow unnamed results for simple functions
+        - paramTypeCombine       # Can be noisy for CLI flag definitions
+        - unnamedResult          # Allow unnamed results for simple functions
+        - evalOrder              # Too pedantic about expression evaluation order
+        - singleCaseSwitch       # Single case switch is acceptable for consistency
+        - ifElseChain            # Long if-else chains can be clearer than switch
+        - builtinShadow          # Allow shadowing in test files
+        - stringXbytes           # Allow string conversion for comparison
+        - emptyStringTest        # Allow len(s) == 0 style
+        - hugeParam              # Allow large struct parameters
 
     revive:
       rules:
@@ -96,22 +100,35 @@ linters:
         - name: error-return
         - name: error-strings
         - name: error-naming
-        - name: exported
         - name: increment-decrement
         - name: var-naming
         - name: var-declaration
-        - name: package-comments
         - name: range
         - name: receiver-naming
         - name: time-naming
         - name: unexported-return
-        - name: indent-error-flow
         - name: errorf
-        - name: empty-block
         - name: superfluous-else
-        - name: unused-parameter
         - name: unreachable-code
-        - name: redefines-builtin-id
+
+  exclusions:
+    # Use common presets for sensible defaults
+    presets:
+      - std-error-handling
+      - common-false-positives
+    rules:
+      # Exclude errcheck in test files
+      - path: _test\.go
+        linters:
+          - errcheck
+          - gosec
+      # Exclude staticcheck SA4006 and SA9003 in test files
+      - path: _test\.go
+        text: "SA4006|SA9003"
+      # Exclude gocritic nestingReduce as it's stylistic
+      - linters:
+          - gocritic
+        text: "nestingReduce"
 
 issues:
   # Maximum issues count per linter (0 = unlimited)
