@@ -42,11 +42,3 @@ docker-up:
 
 docker-down:
 	docker compose down
-
-# Integration tests (requires docker-up)
-test-integration: docker-up
-	sleep 1
-	$(GOTEST) -v -tags=integration ./tests/integration/...
-
-# Run all tests including integration
-test-all: test test-integration
