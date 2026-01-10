@@ -28,6 +28,12 @@ A modern, intuitive TUI (Terminal User Interface) client for Memcached, built wi
 
 ## Installation
 
+### Homebrew (macOS / Linux)
+
+```bash
+brew install nnnkkk7/tap/memtui
+```
+
 ### From Source
 
 ```bash
