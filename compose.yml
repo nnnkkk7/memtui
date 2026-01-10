@@ -1,0 +1,11 @@
+services:
+  memcached:
+    image: memcached:1.6-alpine
+    ports:
+      - "11211:11211"
+    command: ["-m", "64", "-v", "-o", "lru_crawler"]
+    healthcheck:
+      test: ["CMD", "echo", "stats" , "|", "nc", "localhost", "11211"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
