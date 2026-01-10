@@ -23,13 +23,13 @@ type ClipboardErrorMsg struct {
 func (m *Model) connectCmd() tea.Cmd {
 	return func() tea.Msg {
 		detector := client.NewCapabilityDetector()
-		cap, err := detector.Detect(m.addr)
+		caps, err := detector.Detect(m.addr)
 		if err != nil {
 			return ErrorMsg{Err: err.Error()}
 		}
 		return ConnectedMsg{
-			Version:          cap.Version,
-			SupportsMetadump: cap.SupportsMetadump,
+			Version:          caps.Version,
+			SupportsMetadump: caps.SupportsMetadump,
 		}
 	}
 }

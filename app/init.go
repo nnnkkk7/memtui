@@ -24,9 +24,9 @@ func NewModelWithConfig(addr string, cfg *config.Config) *Model {
 	}
 
 	// Select theme based on config
-	theme := styles.DarkTheme
+	theme := &styles.DarkTheme
 	if cfg.UI.Theme == "light" {
-		theme = styles.LightTheme
+		theme = &styles.LightTheme
 	}
 
 	// Create keylist with delimiter from config

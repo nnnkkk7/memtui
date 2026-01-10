@@ -96,9 +96,12 @@ func (ki KeyInfo) IsExpiredAt(now int64) bool {
 // SortOrder represents the sort order for KeyInfo slices
 type SortOrder int
 
+// Sort order options
 const (
-	SortByKey  SortOrder = iota // Sort alphabetically by key name
-	SortBySize                  // Sort by size (ascending)
+	// SortByKey sorts alphabetically by key name
+	SortByKey SortOrder = iota
+	// SortBySize sorts by size (ascending)
+	SortBySize
 )
 
 // SortKeyInfos returns a sorted copy of the KeyInfo slice

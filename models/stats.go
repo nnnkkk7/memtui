@@ -28,10 +28,10 @@ type Stats struct {
 	LimitMaxBytes int64 // Maximum bytes allowed (limit_maxbytes)
 
 	// Cache performance
-	GetHits    int64 // Cache hits
-	GetMisses  int64 // Cache misses
-	Evictions  int64 // Items evicted to free memory
-	HitRate    float64 // Calculated hit rate percentage
+	GetHits   int64   // Cache hits
+	GetMisses int64   // Cache misses
+	Evictions int64   // Items evicted to free memory
+	HitRate   float64 // Calculated hit rate percentage
 
 	// Network I/O
 	BytesRead    int64 // Total bytes read from network
@@ -63,16 +63,17 @@ type SlabStats struct {
 
 // SlabsStats represents overall slab statistics.
 type SlabsStats struct {
-	ActiveSlabs   int                 // Number of active slab classes
-	TotalMalloced int64               // Total memory allocated for slabs
-	Slabs         map[int]*SlabStats  // Per-slab statistics
+	ActiveSlabs   int                // Number of active slab classes
+	TotalMalloced int64              // Total memory allocated for slabs
+	Slabs         map[int]*SlabStats // Per-slab statistics
 }
 
 // ParseStatsResponse parses the response from a Memcached 'stats' command.
 // The response format is:
-//   STAT <key> <value>\r\n
-//   ...
-//   END\r\n
+//
+//	STAT <key> <value>\r\n
+//	...
+//	END\r\n
 func ParseStatsResponse(response string) (*Stats, error) {
 	stats := &Stats{
 		Raw: make(map[string]string),

@@ -41,7 +41,7 @@ func TestE2E_ConfigLoading(t *testing.T) {
 		// Create a temp config directory
 		tmpDir := t.TempDir()
 		configDir := filepath.Join(tmpDir, "memtui")
-		if err := os.MkdirAll(configDir, 0755); err != nil {
+		if err := os.MkdirAll(configDir, 0o755); err != nil {
 			t.Fatalf("failed to create config dir: %v", err)
 		}
 
@@ -54,7 +54,7 @@ ui:
   key_delimiter: "/"
 `
 		configPath := filepath.Join(configDir, "config.yaml")
-		if err := os.WriteFile(configPath, []byte(configContent), 0644); err != nil {
+		if err := os.WriteFile(configPath, []byte(configContent), 0o644); err != nil {
 			t.Fatalf("failed to write config: %v", err)
 		}
 

@@ -205,10 +205,10 @@ func HandleNewKeyConfirm(client Setter, req NewKeyRequest) tea.Cmd {
 }
 
 // ProcessKeyNameInput processes the result of the key name input dialog.
-// Returns the key name if valid, or an error if cancelled or invalid.
+// Returns the key name if valid, or an error if canceled or invalid.
 func ProcessKeyNameInput(result dialog.InputResultMsg) (string, error) {
-	if result.Cancelled {
-		return "", errors.New("cancelled")
+	if result.Canceled {
+		return "", errors.New("canceled")
 	}
 
 	key := result.Value
@@ -220,10 +220,10 @@ func ProcessKeyNameInput(result dialog.InputResultMsg) (string, error) {
 }
 
 // ProcessValueInput processes the result of the value input dialog.
-// Returns the key name from context and the value, or an error if cancelled.
+// Returns the key name from context and the value, or an error if canceled.
 func ProcessValueInput(result dialog.InputResultMsg) (string, string, error) {
-	if result.Cancelled {
-		return "", "", errors.New("cancelled")
+	if result.Canceled {
+		return "", "", errors.New("canceled")
 	}
 
 	key, ok := ExtractNewKeyContext(result.Context)

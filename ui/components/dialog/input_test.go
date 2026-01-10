@@ -107,8 +107,8 @@ func TestInputDialog_Submit_ReturnsInputResultMsg(t *testing.T) {
 	if resultMsg.Value != "mykey" {
 		t.Errorf("expected value 'mykey', got '%s'", resultMsg.Value)
 	}
-	if resultMsg.Cancelled {
-		t.Error("expected Cancelled to be false on submit")
+	if resultMsg.Canceled {
+		t.Error("expected Canceled to be false on submit")
 	}
 }
 
@@ -139,8 +139,8 @@ func TestInputDialog_Cancel_ReturnsInputResultMsg(t *testing.T) {
 	if resultMsg.Value != "" {
 		t.Errorf("expected empty value on cancel, got '%s'", resultMsg.Value)
 	}
-	if !resultMsg.Cancelled {
-		t.Error("expected Cancelled to be true on cancel")
+	if !resultMsg.Canceled {
+		t.Error("expected Canceled to be true on cancel")
 	}
 }
 
@@ -212,7 +212,7 @@ func TestInputDialog_Validator_Valid(t *testing.T) {
 		t.Fatalf("expected InputResultMsg, got %T", msg)
 	}
 
-	if resultMsg.Cancelled {
+	if resultMsg.Canceled {
 		t.Error("expected submission, not cancellation")
 	}
 	if resultMsg.Value != "key" {
@@ -243,7 +243,7 @@ func TestInputDialog_Validator_Invalid(t *testing.T) {
 	if cmd != nil {
 		// If command is returned, it should not be a successful submit
 		msg := cmd()
-		if resultMsg, ok := msg.(dialog.InputResultMsg); ok && !resultMsg.Cancelled {
+		if resultMsg, ok := msg.(dialog.InputResultMsg); ok && !resultMsg.Canceled {
 			t.Error("expected no successful submit for invalid input")
 		}
 	}
@@ -324,16 +324,16 @@ func TestInputDialog_UnrelatedKeyPassesToTextInput(t *testing.T) {
 
 func TestInputResultMsg_Fields(t *testing.T) {
 	msg := dialog.InputResultMsg{
-		Value:     "test-value",
-		Cancelled: false,
-		Context:   "some-context",
+		Value:    "test-value",
+		Canceled: false,
+		Context:  "some-context",
 	}
 
 	if msg.Value != "test-value" {
 		t.Errorf("expected Value 'test-value', got '%s'", msg.Value)
 	}
-	if msg.Cancelled {
-		t.Error("expected Cancelled to be false")
+	if msg.Canceled {
+		t.Error("expected Canceled to be false")
 	}
 	if msg.Context != "some-context" {
 		t.Errorf("expected Context 'some-context', got '%v'", msg.Context)

@@ -9,7 +9,7 @@ import (
 )
 
 // ConfirmResultMsg is the message returned when the dialog is closed.
-// Result is true if confirmed, false if cancelled.
+// Result is true if confirmed, false if canceled.
 type ConfirmResultMsg struct {
 	Result  bool
 	Context interface{}
@@ -17,12 +17,12 @@ type ConfirmResultMsg struct {
 
 // ConfirmDialog is a confirmation dialog component for destructive operations.
 type ConfirmDialog struct {
-	title       string
-	message     string
-	focusedYes  bool
-	context     interface{}
-	width       int
-	height      int
+	title      string
+	message    string
+	focusedYes bool
+	context    interface{}
+	width      int
+	height     int
 
 	// Styles
 	overlayStyle       lipgloss.Style

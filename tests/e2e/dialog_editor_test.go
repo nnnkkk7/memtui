@@ -245,8 +245,8 @@ func TestE2E_ConfirmDialog_KeyboardNavigation_ArrowKeys(t *testing.T) {
 
 func TestE2E_ConfirmDialog_KeyboardNavigation_Enter(t *testing.T) {
 	tests := []struct {
-		name          string
-		focusOnYes    bool
+		name           string
+		focusOnYes     bool
 		expectedResult bool
 	}{
 		{"Enter on Yes", true, true},
@@ -439,7 +439,7 @@ func TestE2E_InputDialog_Validation_Valid(t *testing.T) {
 
 	msg := cmd()
 	result := msg.(dialog.InputResultMsg)
-	if result.Cancelled {
+	if result.Canceled {
 		t.Error("expected successful submission, not cancellation")
 	}
 	if result.Value != "valid-key" {
@@ -470,7 +470,7 @@ func TestE2E_InputDialog_Validation_Invalid_TooShort(t *testing.T) {
 	// Should not produce a result command when validation fails
 	if cmd != nil {
 		msg := cmd()
-		if result, ok := msg.(dialog.InputResultMsg); ok && !result.Cancelled {
+		if result, ok := msg.(dialog.InputResultMsg); ok && !result.Canceled {
 			t.Error("should not successfully submit with invalid input")
 		}
 	}
@@ -507,7 +507,7 @@ func TestE2E_InputDialog_Validation_Invalid_ContainsSpace(t *testing.T) {
 	// Should not produce a result command when validation fails
 	if cmd != nil {
 		msg := cmd()
-		if result, ok := msg.(dialog.InputResultMsg); ok && !result.Cancelled {
+		if result, ok := msg.(dialog.InputResultMsg); ok && !result.Canceled {
 			t.Error("should not successfully submit with spaces in key name")
 		}
 	}
@@ -570,8 +570,8 @@ func TestE2E_InputDialog_Submit(t *testing.T) {
 		t.Fatalf("expected InputResultMsg, got %T", msg)
 	}
 
-	if result.Cancelled {
-		t.Error("expected Cancelled=false on submit")
+	if result.Canceled {
+		t.Error("expected Canceled=false on submit")
 	}
 	if result.Value != "new-key-name" {
 		t.Errorf("expected value 'new-key-name', got '%s'", result.Value)
@@ -599,8 +599,8 @@ func TestE2E_InputDialog_Cancel(t *testing.T) {
 		t.Fatalf("expected InputResultMsg, got %T", msg)
 	}
 
-	if !result.Cancelled {
-		t.Error("expected Cancelled=true on Esc")
+	if !result.Canceled {
+		t.Error("expected Canceled=true on Esc")
 	}
 	if result.Value != "" {
 		t.Errorf("expected empty value on cancel, got '%s'", result.Value)
@@ -1189,7 +1189,7 @@ func TestE2E_InputDialog_EmptySubmit(t *testing.T) {
 	if result.Value != "" {
 		t.Errorf("expected empty value, got '%s'", result.Value)
 	}
-	if result.Cancelled {
+	if result.Canceled {
 		t.Error("expected successful submission, not cancellation")
 	}
 }

@@ -10,11 +10,11 @@ import (
 )
 
 // InputResultMsg is the message returned when the input dialog is closed.
-// Value contains the entered text, Cancelled is true if the user pressed Escape.
+// Value contains the entered text, Canceled is true if the user pressed Escape.
 type InputResultMsg struct {
-	Value     string
-	Cancelled bool
-	Context   interface{}
+	Value    string
+	Canceled bool
+	Context  interface{}
 }
 
 // ValidatorFunc is a function that validates input and returns an error if invalid.
@@ -166,9 +166,9 @@ func (d *InputDialog) submit() tea.Cmd {
 
 	return func() tea.Msg {
 		return InputResultMsg{
-			Value:     value,
-			Cancelled: false,
-			Context:   d.context,
+			Value:    value,
+			Canceled: false,
+			Context:  d.context,
 		}
 	}
 }
@@ -177,9 +177,9 @@ func (d *InputDialog) submit() tea.Cmd {
 func (d *InputDialog) cancel() tea.Cmd {
 	return func() tea.Msg {
 		return InputResultMsg{
-			Value:     "",
-			Cancelled: true,
-			Context:   d.context,
+			Value:    "",
+			Canceled: true,
+			Context:  d.context,
 		}
 	}
 }

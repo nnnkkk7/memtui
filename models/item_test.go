@@ -153,11 +153,11 @@ func TestItem_UpdateTTL(t *testing.T) {
 	t.Run("TTL calculation accuracy", func(t *testing.T) {
 		now := time.Now().Unix()
 		testCases := []struct {
-			name            string
-			expiration      int64
-			wantTTLMin      int64
-			wantTTLMax      int64
-			wantIsExpired   bool
+			name          string
+			expiration    int64
+			wantTTLMin    int64
+			wantTTLMax    int64
+			wantIsExpired bool
 		}{
 			{"1 second remaining", now + 1, 0, 1, false},
 			{"1 minute remaining", now + 60, 59, 60, false},

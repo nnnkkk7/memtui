@@ -16,11 +16,17 @@ import (
 // State represents the application state
 type State int
 
+// Application states
 const (
+	// StateConnecting indicates the app is connecting to the server
 	StateConnecting State = iota
+	// StateConnected indicates successful connection
 	StateConnected
+	// StateLoading indicates data is being loaded
 	StateLoading
+	// StateReady indicates the app is ready for use
 	StateReady
+	// StateError indicates an error occurred
 	StateError
 )
 
@@ -45,13 +51,21 @@ func (s State) String() string {
 // FocusMode represents which component has focus
 type FocusMode int
 
+// Focus modes for UI components
 const (
+	// FocusKeyList indicates the key list has focus
 	FocusKeyList FocusMode = iota
+	// FocusViewer indicates the value viewer has focus
 	FocusViewer
+	// FocusDialog indicates a dialog has focus
 	FocusDialog
+	// FocusEditor indicates the editor has focus
 	FocusEditor
+	// FocusCommandPalette indicates the command palette has focus
 	FocusCommandPalette
+	// FocusHelp indicates the help view has focus
 	FocusHelp
+	// FocusFilter indicates the filter input has focus
 	FocusFilter
 )
 
@@ -109,13 +123,13 @@ type Styles struct {
 
 // DefaultStyles returns the default styles using the dark theme
 func DefaultStyles() Styles {
-	return NewStylesFromTheme(styles.DarkTheme)
+	return NewStylesFromTheme(&styles.DarkTheme)
 }
 
 // NewStylesFromTheme creates Styles from a Theme
-func NewStylesFromTheme(theme styles.Theme) Styles {
+func NewStylesFromTheme(theme *styles.Theme) Styles {
 	return Styles{
-		Theme: theme,
+		Theme: *theme,
 		Title: lipgloss.NewStyle().
 			Bold(true).
 			Foreground(theme.BorderFocus),

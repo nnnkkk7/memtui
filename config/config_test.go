@@ -94,7 +94,7 @@ func TestConfig_Load_FromYAML(t *testing.T) {
 
 	// Create config directory and file
 	configDir := filepath.Join(tmpDir, "memtui")
-	if err := os.MkdirAll(configDir, 0755); err != nil {
+	if err := os.MkdirAll(configDir, 0o755); err != nil {
 		t.Fatalf("failed to create config dir: %v", err)
 	}
 
@@ -108,7 +108,7 @@ ui:
   default_view_mode: "json"
 `
 	configPath := filepath.Join(configDir, "config.yaml")
-	if err := os.WriteFile(configPath, []byte(yamlContent), 0644); err != nil {
+	if err := os.WriteFile(configPath, []byte(yamlContent), 0o644); err != nil {
 		t.Fatalf("failed to write config file: %v", err)
 	}
 
@@ -240,7 +240,7 @@ func TestConfig_MergeWithDefaults(t *testing.T) {
 
 	// Create config directory and file with partial config
 	configDir := filepath.Join(tmpDir, "memtui")
-	if err := os.MkdirAll(configDir, 0755); err != nil {
+	if err := os.MkdirAll(configDir, 0o755); err != nil {
 		t.Fatalf("failed to create config dir: %v", err)
 	}
 
@@ -251,7 +251,7 @@ ui:
   theme: "light"
 `
 	configPath := filepath.Join(configDir, "config.yaml")
-	if err := os.WriteFile(configPath, []byte(yamlContent), 0644); err != nil {
+	if err := os.WriteFile(configPath, []byte(yamlContent), 0o644); err != nil {
 		t.Fatalf("failed to write config file: %v", err)
 	}
 
@@ -286,7 +286,7 @@ func TestConfig_InvalidYAML(t *testing.T) {
 
 	// Create config directory and file with invalid YAML
 	configDir := filepath.Join(tmpDir, "memtui")
-	if err := os.MkdirAll(configDir, 0755); err != nil {
+	if err := os.MkdirAll(configDir, 0o755); err != nil {
 		t.Fatalf("failed to create config dir: %v", err)
 	}
 
@@ -294,7 +294,7 @@ func TestConfig_InvalidYAML(t *testing.T) {
   default_address: [invalid yaml
 `
 	configPath := filepath.Join(configDir, "config.yaml")
-	if err := os.WriteFile(configPath, []byte(invalidYAML), 0644); err != nil {
+	if err := os.WriteFile(configPath, []byte(invalidYAML), 0o644); err != nil {
 		t.Fatalf("failed to write config file: %v", err)
 	}
 

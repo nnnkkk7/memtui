@@ -45,20 +45,20 @@ type KeySelectedMsg struct {
 
 // Model represents the key list component
 type Model struct {
-	keys       []models.KeyInfo
-	filtered   []models.KeyInfo
-	filter     string
-	delimiter  string
-	tree       *TreeNode
-	cursor     int
-	offset     int
-	width      int
-	height     int
-	flatNodes  []*TreeNode // Flattened visible nodes for navigation
+	keys      []models.KeyInfo
+	filtered  []models.KeyInfo
+	filter    string
+	delimiter string
+	tree      *TreeNode
+	cursor    int
+	offset    int
+	width     int
+	height    int
+	flatNodes []*TreeNode // Flattened visible nodes for navigation
 
 	// Multi-select support
-	selected     map[string]bool // Map of selected key names
-	multiSelect  bool            // Whether multi-select mode is enabled
+	selected    map[string]bool // Map of selected key names
+	multiSelect bool            // Whether multi-select mode is enabled
 
 	// Styles
 	normalStyle   lipgloss.Style

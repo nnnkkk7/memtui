@@ -155,7 +155,7 @@ func (m *Model) handleFilterInput(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		return m, nil
 
 	case tea.KeyBackspace:
-		if len(m.filterInput) > 0 {
+		if m.filterInput != "" {
 			m.filterInput = m.filterInput[:len(m.filterInput)-1]
 			m.keyList.SetFilter(m.filterInput)
 		}

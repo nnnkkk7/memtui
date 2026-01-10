@@ -9,11 +9,17 @@ import (
 // DataType represents the detected data type
 type DataType int
 
+// Data type classifications
 const (
+	// DataTypeText indicates plain text data
 	DataTypeText DataType = iota
+	// DataTypeJSON indicates JSON data
 	DataTypeJSON
+	// DataTypeBinary indicates binary data
 	DataTypeBinary
+	// DataTypeCompressedGzip indicates gzip-compressed data
 	DataTypeCompressedGzip
+	// DataTypeCompressedZlib indicates zlib-compressed data
 	DataTypeCompressedZlib
 )
 

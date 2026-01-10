@@ -294,8 +294,8 @@ func TestDeleteFlowIntegration(t *testing.T) {
 		}
 	})
 
-	t.Run("delete flow cancelled by user", func(t *testing.T) {
-		keyToDelete := "cancelled-key"
+	t.Run("delete flow canceled by user", func(t *testing.T) {
+		keyToDelete := "canceled-key"
 
 		// Step 1: Create delete confirmation dialog
 		dialog := app.CreateDeleteConfirmDialog(keyToDelete)

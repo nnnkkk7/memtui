@@ -1,3 +1,4 @@
+// Package viewer provides a component for displaying Memcached values in various formats.
 package viewer
 
 import (
@@ -13,10 +14,15 @@ import (
 // ViewMode represents the display mode
 type ViewMode int
 
+// View mode options
 const (
+	// ViewModeAuto automatically detects the best display format
 	ViewModeAuto ViewMode = iota
+	// ViewModeJSON displays data as formatted JSON
 	ViewModeJSON
+	// ViewModeHex displays data as hexadecimal
 	ViewModeHex
+	// ViewModeText displays data as plain text
 	ViewModeText
 )
 
@@ -249,11 +255,4 @@ func (m *Model) View() string {
 	}
 
 	return b.String()
-}
-
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
 }

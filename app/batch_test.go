@@ -663,9 +663,9 @@ func TestProcessBatchInputResult(t *testing.T) {
 		ctx := app.BatchDeleteContext{Keys: keys}
 
 		result := dialog.InputResultMsg{
-			Value:     "DELETE",
-			Cancelled: false,
-			Context:   ctx,
+			Value:    "DELETE",
+			Canceled: false,
+			Context:  ctx,
 		}
 
 		msg := app.ProcessBatchInputResult(result)
@@ -678,19 +678,19 @@ func TestProcessBatchInputResult(t *testing.T) {
 		}
 	})
 
-	t.Run("cancelled returns nil", func(t *testing.T) {
+	t.Run("canceled returns nil", func(t *testing.T) {
 		keys := []string{"key1"}
 		ctx := app.BatchDeleteContext{Keys: keys}
 
 		result := dialog.InputResultMsg{
-			Value:     "",
-			Cancelled: true,
-			Context:   ctx,
+			Value:    "",
+			Canceled: true,
+			Context:  ctx,
 		}
 
 		msg := app.ProcessBatchInputResult(result)
 		if msg != nil {
-			t.Error("expected nil message for cancelled input")
+			t.Error("expected nil message for canceled input")
 		}
 	})
 
@@ -699,9 +699,9 @@ func TestProcessBatchInputResult(t *testing.T) {
 		ctx := app.BatchDeleteContext{Keys: keys}
 
 		result := dialog.InputResultMsg{
-			Value:     "delete", // lowercase
-			Cancelled: false,
-			Context:   ctx,
+			Value:    "delete", // lowercase
+			Canceled: false,
+			Context:  ctx,
 		}
 
 		msg := app.ProcessBatchInputResult(result)
@@ -712,9 +712,9 @@ func TestProcessBatchInputResult(t *testing.T) {
 
 	t.Run("nil context returns nil", func(t *testing.T) {
 		result := dialog.InputResultMsg{
-			Value:     "DELETE",
-			Cancelled: false,
-			Context:   nil,
+			Value:    "DELETE",
+			Canceled: false,
+			Context:  nil,
 		}
 
 		msg := app.ProcessBatchInputResult(result)
@@ -790,9 +790,9 @@ func TestBatchDeleteIntegration(t *testing.T) {
 		// Step 2: User types "DELETE" (simulated by creating result directly)
 		ctx := app.BatchDeleteContext{Keys: keys}
 		inputResult := dialog.InputResultMsg{
-			Value:     "DELETE",
-			Cancelled: false,
-			Context:   ctx,
+			Value:    "DELETE",
+			Canceled: false,
+			Context:  ctx,
 		}
 
 		// Step 3: Process input result
@@ -851,20 +851,20 @@ func TestBatchDeleteIntegration(t *testing.T) {
 		}
 	})
 
-	t.Run("batch delete cancelled by user", func(t *testing.T) {
+	t.Run("batch delete canceled by user", func(t *testing.T) {
 		keys := []string{"user:1", "user:2"}
 
 		// User cancels by pressing Escape
 		ctx := app.BatchDeleteContext{Keys: keys}
 		inputResult := dialog.InputResultMsg{
-			Value:     "",
-			Cancelled: true,
-			Context:   ctx,
+			Value:    "",
+			Canceled: true,
+			Context:  ctx,
 		}
 
 		msg := app.ProcessBatchInputResult(inputResult)
 		if msg != nil {
-			t.Error("expected nil message for cancelled input")
+			t.Error("expected nil message for canceled input")
 		}
 	})
 }

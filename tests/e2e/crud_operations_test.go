@@ -20,21 +20,21 @@ import (
 
 // CRUD Test constants
 const (
-	crudTestKeyPrefix    = "e2e_crud_"
-	crudDefaultTimeout   = 10 * time.Second
-	crudKeyEnumDelay     = 500 * time.Millisecond
-	crudDefaultTermWidth = 120
+	crudTestKeyPrefix     = "e2e_crud_"
+	crudDefaultTimeout    = 10 * time.Second
+	crudKeyEnumDelay      = 500 * time.Millisecond
+	crudDefaultTermWidth  = 120
 	crudDefaultTermHeight = 40
 )
 
 // crudTestHelper provides utilities for CRUD E2E tests
 type crudTestHelper struct {
-	t        *testing.T
-	addr     string
-	mc       *memcache.Client
+	t         *testing.T
+	addr      string
+	mc        *memcache.Client
 	casClient *client.Client
-	model    *app.Model
-	testKeys []string
+	model     *app.Model
+	testKeys  []string
 }
 
 // newCrudTestHelper creates a new test helper for CRUD tests
@@ -1140,8 +1140,8 @@ func TestInputDialog_Cancel(t *testing.T) {
 		if !ok {
 			t.Fatalf("expected InputResultMsg, got %T", msg)
 		}
-		if !result.Cancelled {
-			t.Error("result should be cancelled")
+		if !result.Canceled {
+			t.Error("result should be canceled")
 		}
 	}
 }
@@ -1429,7 +1429,7 @@ func TestProcessConfirmResult(t *testing.T) {
 		}
 	})
 
-	t.Run("cancelled", func(t *testing.T) {
+	t.Run("canceled", func(t *testing.T) {
 		result := dialog.ConfirmResultMsg{
 			Result:  false,
 			Context: "mykey",
@@ -1437,7 +1437,7 @@ func TestProcessConfirmResult(t *testing.T) {
 
 		msg := app.ProcessConfirmResult(result)
 		if msg != nil {
-			t.Error("expected nil for cancelled")
+			t.Error("expected nil for canceled")
 		}
 	})
 }
@@ -1446,9 +1446,9 @@ func TestProcessConfirmResult(t *testing.T) {
 func TestProcessBatchInputResult(t *testing.T) {
 	t.Run("valid DELETE confirmation", func(t *testing.T) {
 		result := dialog.InputResultMsg{
-			Value:     "DELETE",
-			Cancelled: false,
-			Context:   app.BatchDeleteContext{Keys: []string{"key1", "key2"}},
+			Value:    "DELETE",
+			Canceled: false,
+			Context:  app.BatchDeleteContext{Keys: []string{"key1", "key2"}},
 		}
 
 		msg := app.ProcessBatchInputResult(result)
@@ -1460,24 +1460,24 @@ func TestProcessBatchInputResult(t *testing.T) {
 		}
 	})
 
-	t.Run("cancelled", func(t *testing.T) {
+	t.Run("canceled", func(t *testing.T) {
 		result := dialog.InputResultMsg{
-			Value:     "DELETE",
-			Cancelled: true,
-			Context:   app.BatchDeleteContext{Keys: []string{"key1"}},
+			Value:    "DELETE",
+			Canceled: true,
+			Context:  app.BatchDeleteContext{Keys: []string{"key1"}},
 		}
 
 		msg := app.ProcessBatchInputResult(result)
 		if msg != nil {
-			t.Error("expected nil for cancelled")
+			t.Error("expected nil for canceled")
 		}
 	})
 
 	t.Run("invalid input", func(t *testing.T) {
 		result := dialog.InputResultMsg{
-			Value:     "delete",
-			Cancelled: false,
-			Context:   app.BatchDeleteContext{Keys: []string{"key1"}},
+			Value:    "delete",
+			Canceled: false,
+			Context:  app.BatchDeleteContext{Keys: []string{"key1"}},
 		}
 
 		msg := app.ProcessBatchInputResult(result)

@@ -18,14 +18,14 @@ func createTestStats() *models.Stats {
 		TotalConnections:   1000,
 		CurrentItems:       500,
 		TotalItems:         10000,
-		Bytes:              52428800,     // 50 MB
-		LimitMaxBytes:      104857600,    // 100 MB
+		Bytes:              52428800,  // 50 MB
+		LimitMaxBytes:      104857600, // 100 MB
 		GetHits:            8000,
 		GetMisses:          2000,
 		Evictions:          100,
 		HitRate:            80.0,
-		BytesRead:          1073741824,   // 1 GB
-		BytesWritten:       536870912,    // 512 MB
+		BytesRead:          1073741824, // 1 GB
+		BytesWritten:       536870912,  // 512 MB
 		Raw:                make(map[string]string),
 	}
 }

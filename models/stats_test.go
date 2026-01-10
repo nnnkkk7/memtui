@@ -110,8 +110,8 @@ END
 			},
 		},
 		{
-			name: "stats with CRLF line endings",
-			input: "STAT pid 5678\r\nSTAT uptime 3600\r\nSTAT version 1.4.31\r\nSTAT curr_items 100\r\nEND\r\n",
+			name:    "stats with CRLF line endings",
+			input:   "STAT pid 5678\r\nSTAT uptime 3600\r\nSTAT version 1.4.31\r\nSTAT curr_items 100\r\nEND\r\n",
 			wantErr: false,
 			validate: func(t *testing.T, s *models.Stats) {
 				if s.PID != 5678 {
@@ -129,8 +129,8 @@ END
 			},
 		},
 		{
-			name: "stats with trailing CR in values",
-			input: "STAT version 1.6.22\r\nSTAT curr_items 200\r\nEND\r\n",
+			name:    "stats with trailing CR in values",
+			input:   "STAT version 1.6.22\r\nSTAT curr_items 200\r\nEND\r\n",
 			wantErr: false,
 			validate: func(t *testing.T, s *models.Stats) {
 				// Values should not have trailing \r
@@ -163,8 +163,8 @@ END
 			},
 		},
 		{
-			name: "malformed line - missing value",
-			input: "STAT pid\nSTAT version 1.6.22\nEND\n",
+			name:    "malformed line - missing value",
+			input:   "STAT pid\nSTAT version 1.6.22\nEND\n",
 			wantErr: false,
 			validate: func(t *testing.T, s *models.Stats) {
 				// pid should be skipped, version should be parsed
@@ -174,8 +174,8 @@ END
 			},
 		},
 		{
-			name: "non-STAT lines ignored",
-			input: "SERVER_ERROR some error\nSTAT version 1.6.22\nEND\n",
+			name:    "non-STAT lines ignored",
+			input:   "SERVER_ERROR some error\nSTAT version 1.6.22\nEND\n",
 			wantErr: false,
 			validate: func(t *testing.T, s *models.Stats) {
 				if s.Version != "1.6.22" {
@@ -462,7 +462,7 @@ func TestSlabStats_Fields(t *testing.T) {
 
 func TestSlabsStats_Fields(t *testing.T) {
 	ss := models.SlabsStats{
-		ActiveSlabs: 5,
+		ActiveSlabs:   5,
 		TotalMalloced: 67108864,
 		Slabs: map[int]*models.SlabStats{
 			1: {SlabID: 1, ChunkSize: 96},

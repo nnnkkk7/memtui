@@ -169,7 +169,7 @@ func (m *Model) handleInputResult(msg dialog.InputResultMsg) (tea.Model, tea.Cmd
 	m.inputDialog = nil
 	m.focus = FocusKeyList
 
-	if msg.Cancelled {
+	if msg.Canceled {
 		return m, nil
 	}
 

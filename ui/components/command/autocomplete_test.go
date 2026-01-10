@@ -141,9 +141,9 @@ func TestRankCommands_Filter(t *testing.T) {
 // TestRankCommands_Sorting verifies that commands are sorted by score.
 func TestRankCommands_Sorting(t *testing.T) {
 	commands := []Command{
-		{Name: "Show statistics"},    // "stat" in middle
-		{Name: "Statistics viewer"},  // "stat" at beginning
-		{Name: "View stats"},         // "stat" in middle
+		{Name: "Show statistics"},   // "stat" in middle
+		{Name: "Statistics viewer"}, // "stat" at beginning
+		{Name: "View stats"},        // "stat" in middle
 	}
 
 	ranked := RankCommands(commands, "stat")

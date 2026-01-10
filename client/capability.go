@@ -1,3 +1,5 @@
+// Package client provides Memcached client functionality including connection handling,
+// key enumeration, CAS operations, and server capability detection.
 package client
 
 import (
@@ -41,9 +43,9 @@ func (d *CapabilityDetector) Detect(addr string) (*Capability, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect: %w", err)
 	}
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
-	conn.SetDeadline(time.Now().Add(d.timeout))
+	_ = conn.SetDeadline(time.Now().Add(d.timeout))
 
 	// Send stats command
 	_, err = fmt.Fprintf(conn, "stats\r\n")
@@ -83,16 +85,16 @@ func (d *CapabilityDetector) Detect(addr string) (*Capability, error) {
 
 // Verify checks if the server meets the minimum requirements
 func (d *CapabilityDetector) Verify(addr string) (*Capability, error) {
-	cap, err := d.Detect(addr)
+	caps, err := d.Detect(addr)
 	if err != nil {
 		return nil, err
 	}
 
-	if !cap.SupportsMetadump {
-		return nil, fmt.Errorf("%w (detected: %s)", ErrUnsupportedVersion, cap.Version)
+	if !caps.SupportsMetadump {
+		return nil, fmt.Errorf("%w (detected: %s)", ErrUnsupportedVersion, caps.Version)
 	}
 
-	return cap, nil
+	return caps, nil
 }
 
 // ParseVersion parses a version string like "1.6.22" into major, minor, patch

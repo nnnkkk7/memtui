@@ -28,14 +28,14 @@ var navigationTestKeys = map[string]string{
 	"e2e_nav:user:1003:profile":     `{"name":"Charlie","email":"charlie@example.com"}`,
 
 	// Cache namespace
-	"e2e_nav:cache:api:users":     `[{"id":1001},{"id":1002}]`,
-	"e2e_nav:cache:api:products":  `[{"id":1},{"id":2}]`,
-	"e2e_nav:cache:api:orders":    `[{"id":100}]`,
+	"e2e_nav:cache:api:users":       `[{"id":1001},{"id":1002}]`,
+	"e2e_nav:cache:api:products":    `[{"id":1},{"id":2}]`,
+	"e2e_nav:cache:api:orders":      `[{"id":100}]`,
 	"e2e_nav:cache:static:homepage": `<html>...</html>`,
 
 	// Config namespace
-	"e2e_nav:config:app:settings":   `{"debug":false,"timeout":30}`,
-	"e2e_nav:config:db:connection":  `{"host":"localhost","port":5432}`,
+	"e2e_nav:config:app:settings":  `{"debug":false,"timeout":30}`,
+	"e2e_nav:config:db:connection": `{"host":"localhost","port":5432}`,
 
 	// Single-level keys (no hierarchy beyond prefix)
 	"e2e_nav:simple_key_1": "simple value 1",

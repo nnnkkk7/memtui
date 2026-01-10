@@ -1,3 +1,4 @@
+// Package statusbar provides a status bar component for displaying connection status.
 package statusbar
 
 import (
@@ -9,11 +10,17 @@ import (
 // Status represents the connection status
 type Status int
 
+// Status bar states
 const (
+	// StatusConnecting indicates the connection is in progress
 	StatusConnecting Status = iota
+	// StatusConnected indicates successful connection
 	StatusConnected
+	// StatusLoading indicates data is loading
 	StatusLoading
+	// StatusReady indicates the app is ready
 	StatusReady
+	// StatusError indicates an error state
 	StatusError
 )
 

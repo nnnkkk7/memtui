@@ -205,7 +205,7 @@ func (e *Editor) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case tea.KeyCtrlF:
 			// Format JSON (only in JSON mode)
 			if e.mode == ModeJSON {
-				e.FormatJSON()
+				_ = e.FormatJSON()
 			}
 			return e, nil
 		}

@@ -130,7 +130,7 @@ func HandleBatchDeleteResult(msg BatchDeleteResultMsg) BatchDeleteSummary {
 
 // CreateBatchDeleteDialog creates an input dialog for batch delete confirmation.
 // The dialog requires the user to type "DELETE" to confirm the operation.
-func CreateBatchDeleteDialog(count int) *dialog.InputDialog {
+func CreateBatchDeleteDialog(_ int) *dialog.InputDialog {
 	title := "Batch Delete Confirmation"
 
 	dlg := dialog.NewInput(title).
@@ -183,10 +183,10 @@ func ExtractBatchDeleteContext(ctx interface{}) ([]string, bool) {
 }
 
 // ProcessBatchInputResult processes an input dialog result for batch deletion.
-// Returns a BatchDeleteMsg if confirmed with "DELETE", or nil if cancelled or invalid.
+// Returns a BatchDeleteMsg if confirmed with "DELETE", or nil if canceled or invalid.
 func ProcessBatchInputResult(result dialog.InputResultMsg) *BatchDeleteMsg {
-	// User cancelled
-	if result.Cancelled {
+	// User canceled
+	if result.Canceled {
 		return nil
 	}
 

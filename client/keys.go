@@ -11,6 +11,9 @@ import (
 	"github.com/nnnkkk7/memtui/models"
 )
 
+// memcachedEnd is the terminator for Memcached responses
+const memcachedEnd = "END"
+
 // KeyEnumerator enumerates keys from Memcached using lru_crawler metadump
 type KeyEnumerator struct {
 	addr    string
@@ -79,14 +82,14 @@ func (e *KeyEnumerator) enumerate(ctx context.Context, keyChan chan<- models.Key
 	if err != nil {
 		return fmt.Errorf("failed to connect: %w", err)
 	}
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	// Set deadline from context or timeout
 	deadline := time.Now().Add(e.timeout)
 	if ctxDeadline, ok := ctx.Deadline(); ok && ctxDeadline.Before(deadline) {
 		deadline = ctxDeadline
 	}
-	conn.SetDeadline(deadline)
+	_ = conn.SetDeadline(deadline)
 
 	// Send lru_crawler metadump command
 	_, err = fmt.Fprintf(conn, "lru_crawler metadump all\r\n")
@@ -108,7 +111,7 @@ func (e *KeyEnumerator) enumerate(ctx context.Context, keyChan chan<- models.Key
 		// Handle \r from Memcached protocol
 		line = strings.TrimSuffix(line, "\r")
 
-		if line == "END" {
+		if line == memcachedEnd {
 			break
 		}
 

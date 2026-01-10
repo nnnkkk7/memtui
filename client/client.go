@@ -133,11 +133,11 @@ func (c *Client) RawCommand(ctx context.Context, cmd string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	// Set deadline from context
 	if deadline, ok := ctx.Deadline(); ok {
-		conn.SetDeadline(deadline)
+		_ = conn.SetDeadline(deadline)
 	}
 
 	// Send command

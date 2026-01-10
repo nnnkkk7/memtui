@@ -31,12 +31,12 @@ type Model struct {
 	bindings []KeyBinding
 
 	// Styles
-	overlayStyle  lipgloss.Style
-	titleStyle    lipgloss.Style
-	sectionStyle  lipgloss.Style
-	keyStyle      lipgloss.Style
-	actionStyle   lipgloss.Style
-	footerStyle   lipgloss.Style
+	overlayStyle lipgloss.Style
+	titleStyle   lipgloss.Style
+	sectionStyle lipgloss.Style
+	keyStyle     lipgloss.Style
+	actionStyle  lipgloss.Style
+	footerStyle  lipgloss.Style
 }
 
 // NewModel creates a new help overlay model

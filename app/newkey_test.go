@@ -467,7 +467,7 @@ func TestNewKeyFlowIntegration(t *testing.T) {
 		}
 	})
 
-	t.Run("new key flow cancelled by user", func(t *testing.T) {
+	t.Run("new key flow canceled by user", func(t *testing.T) {
 		// Step 1: Create key input dialog
 		keyDialog := app.CreateNewKeyDialog()
 
@@ -477,7 +477,7 @@ func TestNewKeyFlowIntegration(t *testing.T) {
 			t.Fatal("expected cancel command")
 		}
 
-		// The cancel command would return InputResultMsg with Cancelled: true
+		// The cancel command would return InputResultMsg with Canceled: true
 		// In real app, this would close the dialog without creating key
 	})
 }

@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	tea "github.com/charmbracelet/bubbletea"
 	"github.com/bradfitz/gomemcache/memcache"
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/nnnkkk7/memtui/models"
 	"github.com/nnnkkk7/memtui/ui/components/viewer"
 	viewerPkg "github.com/nnnkkk7/memtui/viewer"

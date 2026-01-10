@@ -113,10 +113,10 @@ func ExtractDeleteContext(ctx interface{}) (string, bool) {
 }
 
 // ProcessConfirmResult processes a confirmation dialog result for deletion.
-// Returns a DeleteConfirmMsg if confirmed, or nil if cancelled.
+// Returns a DeleteConfirmMsg if confirmed, or nil if canceled.
 func ProcessConfirmResult(result dialog.ConfirmResultMsg) *DeleteConfirmMsg {
 	if !result.Result {
-		// User cancelled
+		// User canceled
 		return nil
 	}
 

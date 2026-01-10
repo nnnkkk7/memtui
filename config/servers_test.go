@@ -132,7 +132,7 @@ func TestLoadServers(t *testing.T) {
 
 		// Create config directory and file
 		configDir := filepath.Join(tmpDir, AppName)
-		if err := os.MkdirAll(configDir, 0755); err != nil {
+		if err := os.MkdirAll(configDir, 0o755); err != nil {
 			t.Fatalf("failed to create config dir: %v", err)
 		}
 
@@ -146,7 +146,7 @@ func TestLoadServers(t *testing.T) {
 last_used: test-server
 `
 		path := filepath.Join(configDir, "servers.yaml")
-		if err := os.WriteFile(path, []byte(content), 0644); err != nil {
+		if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
 			t.Fatalf("failed to write test file: %v", err)
 		}
 
@@ -169,13 +169,13 @@ last_used: test-server
 
 		// Create config directory and invalid file
 		configDir := filepath.Join(tmpDir, AppName)
-		if err := os.MkdirAll(configDir, 0755); err != nil {
+		if err := os.MkdirAll(configDir, 0o755); err != nil {
 			t.Fatalf("failed to create config dir: %v", err)
 		}
 
 		content := `invalid: [yaml: content`
 		path := filepath.Join(configDir, "servers.yaml")
-		if err := os.WriteFile(path, []byte(content), 0644); err != nil {
+		if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
 			t.Fatalf("failed to write test file: %v", err)
 		}
 

@@ -12,10 +12,10 @@ import (
 
 // Command represents a single command that can be executed from the palette.
 type Command struct {
-	Name        string           // Display name of the command
-	Description string           // Brief description of what the command does
-	Shortcut    string           // Keyboard shortcut (e.g., "r", "Ctrl+S")
-	Action      func() tea.Msg   // Function to execute when command is selected
+	Name        string         // Display name of the command
+	Description string         // Brief description of what the command does
+	Shortcut    string         // Keyboard shortcut (e.g., "r", "Ctrl+S")
+	Action      func() tea.Msg // Function to execute when command is selected
 }
 
 // CommandExecuteMsg is sent when a command is executed from the palette.
@@ -23,18 +23,18 @@ type CommandExecuteMsg struct {
 	Command Command
 }
 
-// CommandCancelMsg is sent when the command palette is cancelled (Escape).
+// CommandCancelMsg is sent when the command palette is canceled (Escape).
 type CommandCancelMsg struct{}
 
 // CommandPalette is a VS Code-style command palette component.
 type CommandPalette struct {
-	input     textinput.Model
-	commands  []Command
-	filtered  []Command
-	selected  int
-	visible   bool
-	width     int
-	height    int
+	input    textinput.Model
+	commands []Command
+	filtered []Command
+	selected int
+	visible  bool
+	width    int
+	height   int
 
 	// Styles
 	overlayStyle     lipgloss.Style
@@ -179,19 +179,35 @@ func DefaultCommands() []Command {
 	}
 }
 
-// Command action message types for the parent component to handle.
-type (
-	RefreshKeysMsg struct{}
-	DeleteKeyMsg   struct{}
-	NewKeyMsg      struct{}
-	EditValueMsg   struct{}
-	ShowStatsMsg   struct{}
-	ToggleThemeMsg struct{}
-	ShowHelpMsg    struct{}
-	QuitMsg        struct{}
-	FilterKeysMsg  struct{}
-	CopyValueMsg   struct{}
-)
+// RefreshKeysMsg requests the key list to be refreshed.
+type RefreshKeysMsg struct{}
+
+// DeleteKeyMsg requests deletion of the selected key.
+type DeleteKeyMsg struct{}
+
+// NewKeyMsg requests creation of a new key.
+type NewKeyMsg struct{}
+
+// EditValueMsg requests editing of the current value.
+type EditValueMsg struct{}
+
+// ShowStatsMsg requests display of server statistics.
+type ShowStatsMsg struct{}
+
+// ToggleThemeMsg requests toggling between light and dark themes.
+type ToggleThemeMsg struct{}
+
+// ShowHelpMsg requests display of the help screen.
+type ShowHelpMsg struct{}
+
+// QuitMsg requests application exit.
+type QuitMsg struct{}
+
+// FilterKeysMsg requests key filtering mode.
+type FilterKeysMsg struct{}
+
+// CopyValueMsg requests copying the current value to clipboard.
+type CopyValueMsg struct{}
 
 // Visible returns whether the command palette is currently visible.
 func (p *CommandPalette) Visible() bool {
