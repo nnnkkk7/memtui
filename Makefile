@@ -1,44 +1,56 @@
-.PHONY: build test lint run clean docker-up docker-down
+.PHONY: all ci build test clean install lint fmt help install-lint
 
-# Go parameters
-GOCMD=go
-GOBUILD=$(GOCMD) build
-GOTEST=$(GOCMD) test
-GOMOD=$(GOCMD) mod
-BINARY_NAME=memtui
+# Build variables
+BINARY_NAME := memtui
+VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
+BUILD_TIME := $(shell date -u '+%Y-%m-%d_%H:%M:%S')
+LDFLAGS := -ldflags "-s -w -X main.Version=$(VERSION) -X main.BuildTime=$(BUILD_TIME)"
+GO := go
 
-# Build
+# golangci-lint version
+GOLANGCI_LINT_VERSION := v2.1.6
+
+# Default target
+all: test lint build
+
+## ci: Run CI checks (install-lint + lint + test)
+ci: install-lint lint test
+
+# Build the binary
 build:
-	$(GOBUILD) -o $(BINARY_NAME) ./cmd/memtui
+	$(GO) build $(LDFLAGS) -o $(BINARY_NAME) ./cmd/memtui
 
-# Run
-run: build
-	./$(BINARY_NAME)
-
-# Test
+# Run tests
 test:
-	$(GOTEST) -v ./...
+	$(GO) test -v ./...
 
-test-coverage:
-	$(GOTEST) -v -coverprofile=coverage.out ./...
-	$(GOCMD) tool cover -html=coverage.out -o coverage.html
+# Run tests with coverage
+test-cover:
+	$(GO) test -cover ./...
 
-# Lint
-lint:
-	golangci-lint run ./...
+# Generate coverage report
+coverage:
+	$(GO) test -coverprofile=coverage.out ./...
+	$(GO) tool cover -html=coverage.out -o coverage.html
+	@echo "Coverage report: coverage.html"
 
-# Clean
+# Clean build artifacts
 clean:
 	rm -f $(BINARY_NAME)
 	rm -f coverage.out coverage.html
 
-# Dependencies
-tidy:
-	$(GOMOD) tidy
+# Install to GOPATH/bin
+install:
+	$(GO) install $(LDFLAGS) ./cmd/memtui
 
-# Docker for integration tests
-docker-up:
-	docker compose up -d
+# Install golangci-lint
+install-lint:
+	$(GO) install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@$(GOLANGCI_LINT_VERSION)
 
-docker-down:
-	docker compose down
+# Lint code
+lint:
+	golangci-lint run
+
+# Format code
+fmt:
+	$(GO) fmt ./...
