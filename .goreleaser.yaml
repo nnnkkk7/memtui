@@ -98,17 +98,22 @@ release:
 
     **Documentation**: https://github.com/nnnkkk7/memtui#readme
 
-# Homebrew Cask settings
-homebrew_casks:
+# Homebrew Formula settings
+brews:
   - name: memtui
     repository:
       owner: nnnkkk7
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    homepage: https://github.com/nnnkkk7/memtui
+    directory: Formula
+    homepage: "https://github.com/nnnkkk7/memtui"
     description: "A TUI to visualize and manage Memcached"
-    license: MIT
+    license: "MIT"
+    install: |
+      bin.install "memtui"
+    test: |
+      system "#{bin}/memtui", "--version"
     commit_author:
       name: goreleaserbot
       email: goreleaser@memtui.dev
-    binaries: [memtui]
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
