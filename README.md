@@ -1,14 +1,15 @@
 # memtui
 
+
+[![CI](https://github.com/nnnkkk7/memtui/actions/workflows/ci.yaml/badge.svg)](https://github.com/nnnkkk7/memtui/actions/workflows/ci.yaml)
 [![Go Version](https://img.shields.io/badge/Go-1.25.5+-00ADD8?style=flat&logo=go)](https://go.dev/)
+[![Go Report Card](https://goreportcard.com/badge/github.com/nnnkkk7/memtui)](https://goreportcard.com/report/github.com/nnnkkk7/memtui)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 
-A modern, intuitive TUI (Terminal User Interface) client for Memcached, built with Go and [Bubble Tea](https://github.com/charmbracelet/bubbletea).
+A modern, intuitive TUI (Terminal User Interface) client for Memcached, built with Go.
 
-<!-- TODO: Add animated GIF demo here
-![memtui demo](docs/demo.gif)
--->
+![memtui demo](assets/demo.gif)
 
 ## Highlights
 
@@ -34,6 +35,12 @@ A modern, intuitive TUI (Terminal User Interface) client for Memcached, built wi
 brew install nnnkkk7/tap/memtui
 ```
 
+### Using Go Install
+
+```bash
+go install github.com/nnnkkk7/memtui/cmd/memtui@latest
+```
+
 ### From Source
 
 ```bash
@@ -42,11 +49,6 @@ cd memtui
 go build -o memtui ./cmd/memtui
 ```
 
-### Using Go Install
-
-```bash
-go install github.com/nnnkkk7/memtui/cmd/memtui@latest
-```
 
 ## Quick Start
 
@@ -55,17 +57,14 @@ go install github.com/nnnkkk7/memtui/cmd/memtui@latest
 ```bash
 # Using Docker
 docker run -d -p 11211:11211 memcached:latest
-
-# Or using docker compose
-docker compose up -d
 ```
 
 2. **Run memtui**:
 
 ```bash
-./memtui                        # Connect to localhost:11211 (default)
-./memtui -addr localhost:11211  # Specify address
-./memtui --help                 # Show help
+memtui                        # Connect to localhost:11211 (default)
+memtui -addr localhost:11211  # Specify address
+memtui --help                 # Show help
 ```
 
 ## Keyboard Shortcuts
@@ -153,7 +152,7 @@ ui:
 
 CLI flags override config file settings:
 ```bash
-./memtui -addr localhost:11212  # Overrides connection.default_address
+memtui -addr localhost:11212  # Overrides connection.default_address
 ```
 
 ## Architecture
