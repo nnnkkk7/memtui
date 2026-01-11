@@ -28,10 +28,11 @@ jobs:
   goreleaser:
     runs-on: ubuntu-latest
     # Only run if:
-    # 1. Triggered by successful tagpr workflow run, OR
+    # 1. Triggered by successful or skipped tagpr workflow run (skipped = tagpr commit), OR
     # 2. Manually dispatched
     if: |
-      (github.event.workflow_run.conclusion == 'success' &&
+      ((github.event.workflow_run.conclusion == 'success' ||
+        github.event.workflow_run.conclusion == 'skipped') &&
        github.event.workflow_run.event == 'push') ||
       github.event_name == 'workflow_dispatch'
 
