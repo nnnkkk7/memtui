@@ -5,7 +5,7 @@
 [![Go Version](https://img.shields.io/badge/Go-1.25.5+-00ADD8?style=flat&logo=go)](https://go.dev/)
 [![Go Report Card](https://goreportcard.com/badge/github.com/nnnkkk7/memtui)](https://goreportcard.com/report/github.com/nnnkkk7/memtui)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+
 
 A modern, intuitive TUI (Terminal User Interface) client for Memcached, built with Go.
 
@@ -101,6 +101,18 @@ memtui --help                 # Show help
 | `k` / `↑` | Scroll up |
 | `g` | Go to top |
 | `G` | Go to bottom |
+| `J` | JSON view mode |
+| `H` | Hex view mode |
+| `T` | Text view mode |
+| `A` | Auto view mode |
+
+### In Editor
+
+| Key       | Action                      |
+|-----------|-----------------------------|
+| `Ctrl+S`  | Save changes                |
+| `Esc`     | Cancel editing              |
+| `Ctrl+F`  | Format JSON (in JSON mode)  |
 
 ## Features
 
@@ -163,7 +175,8 @@ memtui/
 ├── app/            # Main application logic (Bubble Tea model)
 ├── client/         # Memcached client wrapper
 │   ├── capability.go   # Server capability detection
-│   └── enumerator.go   # Key enumeration via metadump
+│   ├── cas.go          # CAS (Compare-And-Swap) operations
+│   └── keys.go         # Key enumeration via metadump
 ├── models/         # Data models (KeyInfo, Item)
 ├── ui/
 │   ├── components/     # Reusable UI components
