@@ -179,6 +179,20 @@ func (m *Model) Update(msg tea.Msg) (*Model, tea.Cmd) {
 			m.scrollOffset += pageSize
 		case tea.KeyRunes:
 			switch string(msg.Runes) {
+			case "j":
+				// Vim-style scroll down
+				m.scrollOffset++
+			case "k":
+				// Vim-style scroll up
+				if m.scrollOffset > 0 {
+					m.scrollOffset--
+				}
+			case "g":
+				// Go to top
+				m.scrollOffset = 0
+			case "G":
+				// Go to bottom (handled in View with max offset)
+				m.scrollOffset = 9999
 			case "J":
 				m.SetViewMode(ViewModeJSON)
 			case "H":

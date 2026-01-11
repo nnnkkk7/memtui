@@ -299,6 +299,22 @@ func (m *Model) flattenNode(node *TreeNode) {
 func (m *Model) Update(msg tea.Msg) (*Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
+		// Handle vim-style navigation (j/k)
+		if msg.Type == tea.KeyRunes && len(msg.Runes) == 1 {
+			switch msg.Runes[0] {
+			case 'j':
+				if m.cursor < len(m.flatNodes)-1 {
+					m.cursor++
+				}
+				return m, nil
+			case 'k':
+				if m.cursor > 0 {
+					m.cursor--
+				}
+				return m, nil
+			}
+		}
+
 		switch msg.Type {
 		case tea.KeyUp:
 			if m.cursor > 0 {
