@@ -167,31 +167,6 @@ CLI flags override config file settings:
 memtui -addr localhost:11212  # Overrides connection.default_address
 ```
 
-## Architecture
-
-```
-memtui/
-├── cmd/memtui/     # Application entry point
-├── app/            # Main application logic (Bubble Tea model)
-├── client/         # Memcached client wrapper
-│   ├── capability.go   # Server capability detection
-│   ├── cas.go          # CAS (Compare-And-Swap) operations
-│   └── keys.go         # Key enumeration via metadump
-├── models/         # Data models (KeyInfo, Item)
-├── ui/
-│   ├── components/     # Reusable UI components
-│   │   ├── keylist/    # Hierarchical key list
-│   │   ├── viewer/     # Value viewer with formatting
-│   │   ├── command/    # Command palette
-│   │   ├── dialog/     # Confirm/Input dialogs
-│   │   ├── editor/     # Value editor
-│   │   └── help/       # Help overlay
-│   ├── layout/         # Layout utilities
-│   └── styles/         # Lipgloss styles
-├── viewer/         # Value parsing and formatting
-└── config/         # Configuration management
-```
-
 ### Built With
 
 - [Bubble Tea](https://github.com/charmbracelet/bubbletea) - TUI framework based on The Elm Architecture
