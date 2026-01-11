@@ -5,6 +5,13 @@
 - docs: add demo gif and update readme by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/14
 - docs: update readme by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/16
 - chore: update workflows and CHANGELOG by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/18
+- chore: update release workflows by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/19
+
+## [v0.0.4](https://github.com/nnnkkk7/memtui/compare/v0.0.3...v0.0.4) - 2026-01-11
+- feat: add vim-style navigation and scrolling support by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/13
+- docs: add demo gif and update readme by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/14
+- docs: update readme by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/16
+- chore: update workflows and CHANGELOG by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/18
 
 ## [v0.0.3](https://github.com/nnnkkk7/memtui/compare/v0.0.2...v0.0.3) - 2026-01-10
 - ci: replace formula by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/11
