@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.0.5](https://github.com/nnnkkk7/memtui/compare/v0.0.4...v0.0.5) - 2026-01-11
+- ci: add renovate by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/22
+
 ## [v0.0.4](https://github.com/nnnkkk7/memtui/compare/v0.0.3...v0.0.4) - 2026-01-11
 - feat: add vim-style navigation and scrolling support by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/13
 - docs: add demo gif and update readme by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/14
