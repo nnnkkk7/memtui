@@ -40,10 +40,9 @@ Ever tried to debug Memcached data? Traditional tools like `telnet` or `nc` make
 
 **memtui** brings the developer experience you expect from modern tools:
 
-- **No more raw `stats cachedump`** — See all your keys in a tree structure
-- **No more guessing data formats** — Auto-detect JSON, compressed data, binary
-- **No more accidental overwrites** — CAS support prevents data loss
-- **No more context switching** — Stay in your terminal workflow
+- **Browse all keys in a tree** — Uses `lru_crawler metadump` to enumerate keys (requires Memcached 1.4.31+)
+- **Auto-detect data formats** — Recognizes JSON, gzip/zlib, and binary data automatically
+- **Edit with conflict detection** — CAS support detects concurrent modifications during edits
 
 ---
 
@@ -192,7 +191,7 @@ cache:api:posts    ─┘     │     └── session
 The viewer automatically detects and formats:
 
 - **JSON** — Pretty-printed with syntax highlighting
-- **Compressed data** — Auto-decompresses gzip/zlib/zstd
+- **Compressed data** — Detects gzip/zlib (displayed as hex in auto mode)
 - **Binary data** — Displays hex dump
 - **Plain text** — Shows as-is
 
