@@ -1,8 +1,7 @@
 <div align="center">
   <img src="assets/logo.svg" alt="memtui logo" width="140">
   <h1>memtui</h1>
-  <p><strong>The missing Memcached GUI for your terminal</strong></p>
-  <p>Browse keys like folders, view JSON beautifully, edit safely with CAS support</p>
+  <p><strong>A modern, intuitive TUI (Terminal User Interface) client for Memcached, built with Go.</strong></p>
 
   <br>
 
