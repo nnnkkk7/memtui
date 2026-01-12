@@ -21,7 +21,6 @@
 
 - [Why memtui?](#why-memtui)
 - [Highlights](#highlights)
-- [Comparison](#comparison)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Use Cases](#use-cases)
