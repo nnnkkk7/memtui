@@ -58,32 +58,68 @@ func (m *Model) viewMain() string {
 	keyListWidth := m.width * 30 / 100
 	viewerWidth := m.width - keyListWidth - 4
 
+	// Colors for focused/unfocused panes
+	focusedColor := lipgloss.Color("#98C379")   // Bright green for focused
+	unfocusedColor := lipgloss.Color("#4B5263") // Dim gray for unfocused
+
 	// Style for focused/unfocused panes
-	keyListStyle := m.styles.KeyList
-	viewerStyle := m.styles.Viewer
+	var keyListStyle, viewerStyle lipgloss.Style
+	var keyListTitle, viewerTitle string
 
 	if m.focus == FocusKeyList {
-		keyListStyle = keyListStyle.BorderForeground(lipgloss.Color("#98C379"))
+		// KeyList is focused - use thick border and bright color
+		keyListStyle = lipgloss.NewStyle().
+			Border(lipgloss.ThickBorder()).
+			BorderForeground(focusedColor)
+		keyListTitle = lipgloss.NewStyle().
+			Bold(true).
+			Foreground(focusedColor).
+			Render("▶ Keys")
+
+		// Viewer is unfocused - use rounded border and dim color
+		viewerStyle = lipgloss.NewStyle().
+			Border(lipgloss.RoundedBorder()).
+			BorderForeground(unfocusedColor)
+		viewerTitle = lipgloss.NewStyle().
+			Foreground(unfocusedColor).
+			Render("  Value")
 	} else {
-		viewerStyle = viewerStyle.BorderForeground(lipgloss.Color("#98C379"))
+		// KeyList is unfocused
+		keyListStyle = lipgloss.NewStyle().
+			Border(lipgloss.RoundedBorder()).
+			BorderForeground(unfocusedColor)
+		keyListTitle = lipgloss.NewStyle().
+			Foreground(unfocusedColor).
+			Render("  Keys")
+
+		// Viewer is focused - use thick border and bright color
+		viewerStyle = lipgloss.NewStyle().
+			Border(lipgloss.ThickBorder()).
+			BorderForeground(focusedColor)
+		viewerTitle = lipgloss.NewStyle().
+			Bold(true).
+			Foreground(focusedColor).
+			Render("▶ Value")
 	}
 
-	// Render key list
+	// Render key list with title
 	keyListContent := m.keyList.View()
 	keyListBox := keyListStyle.
 		Width(keyListWidth - 2).
-		Height(m.height - 4).
+		Height(m.height - 5).
 		Render(keyListContent)
+	keyListPanel := lipgloss.JoinVertical(lipgloss.Left, keyListTitle, keyListBox)
 
-	// Render viewer
+	// Render viewer with title
 	viewerContent := m.viewer.View()
 	viewerBox := viewerStyle.
 		Width(viewerWidth - 2).
-		Height(m.height - 4).
+		Height(m.height - 5).
 		Render(viewerContent)
+	viewerPanel := lipgloss.JoinVertical(lipgloss.Left, viewerTitle, viewerBox)
 
 	// Join horizontally
-	main := lipgloss.JoinHorizontal(lipgloss.Top, keyListBox, viewerBox)
+	main := lipgloss.JoinHorizontal(lipgloss.Top, keyListPanel, viewerPanel)
 
 	// Status bar
 	filterStatus := ""
