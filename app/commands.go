@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"math"
 	"time"
 
 	"github.com/atotto/clipboard"
@@ -11,6 +12,23 @@ import (
 	"github.com/nnnkkk7/memtui/client"
 	"github.com/nnnkkk7/memtui/models"
 )
+
+// calculateRemainingTTL calculates the remaining TTL from an absolute expiration timestamp.
+// Returns 0 if the key has no expiration or has already expired.
+func calculateRemainingTTL(expiration int64) int32 {
+	if expiration == 0 {
+		return 0 // No expiration
+	}
+	remaining := expiration - time.Now().Unix()
+	if remaining <= 0 {
+		return 0 // Already expired, set to no expiration
+	}
+	// Memcached accepts int32 for expiration, cap at max int32
+	if remaining > math.MaxInt32 {
+		return math.MaxInt32
+	}
+	return int32(remaining)
+}
 
 // ClipboardCopyMsg is sent when clipboard copy is successful
 type ClipboardCopyMsg struct{}
@@ -74,15 +92,27 @@ func (m *Model) loadValueCmd(key string) tea.Cmd {
 	}
 }
 
-func (m *Model) saveValueCmd(key string, value []byte) tea.Cmd {
+func (m *Model) saveValueCmd(key string, value []byte, keyInfo *models.KeyInfo, casItem *client.CASItem) tea.Cmd {
 	return func() tea.Msg {
 		if m.mcClient == nil {
 			return ErrorMsg{Err: "client not connected"}
 		}
 
+		// Preserve Flags from CAS item and TTL from key info
+		flags := uint32(0)
+		expiration := int32(0)
+		if casItem != nil {
+			flags = casItem.Flags
+		}
+		if keyInfo != nil {
+			expiration = calculateRemainingTTL(keyInfo.Expiration)
+		}
+
 		err := m.mcClient.Set(&memcache.Item{
-			Key:   key,
-			Value: value,
+			Key:        key,
+			Value:      value,
+			Flags:      flags,
+			Expiration: expiration,
 		})
 		if err != nil {
 			return ErrorMsg{Err: fmt.Sprintf("failed to save value: %v", err)}
@@ -92,7 +122,7 @@ func (m *Model) saveValueCmd(key string, value []byte) tea.Cmd {
 	}
 }
 
-func (m *Model) saveValueWithCASCmd(key string, value []byte, originalCASItem *client.CASItem) tea.Cmd {
+func (m *Model) saveValueWithCASCmd(key string, value []byte, originalCASItem *client.CASItem, keyInfo *models.KeyInfo) tea.Cmd {
 	return func() tea.Msg {
 		if m.mcClient == nil {
 			return ErrorMsg{Err: "client not connected"}
@@ -104,15 +134,20 @@ func (m *Model) saveValueWithCASCmd(key string, value []byte, originalCASItem *c
 			return ErrorMsg{Err: fmt.Sprintf("failed to get current value for CAS: %v", err)}
 		}
 
-		// Check if the CAS value has changed (item was modified)
-		if casItem.CAS != originalCASItem.CAS {
-			return ErrorMsg{Err: "CAS conflict: value was modified by another client. Please reload and try again."}
-		}
+		// Note: CAS conflict detection relies on CompareAndSwap internally.
+		// The CAS value returned by extractCASValue is a placeholder (always 1),
+		// so pre-comparison here would be meaningless. The actual CAS token is
+		// stored in the unexported casid field of memcache.Item.
 
-		// Update the CAS item with new value, preserving flags and expiration
+		// Update the CAS item with new value, preserving flags from original CAS item
+		// and calculating remaining TTL from key info (metadump expiration)
 		casItem.Value = value
-		casItem.Flags = originalCASItem.Flags
-		casItem.Expiration = originalCASItem.Expiration
+		if originalCASItem != nil {
+			casItem.Flags = originalCASItem.Flags
+		}
+		if keyInfo != nil {
+			casItem.Expiration = calculateRemainingTTL(keyInfo.Expiration)
+		}
 
 		err = m.mcClient.CompareAndSwap(casItem)
 		if err != nil {

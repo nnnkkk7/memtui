@@ -202,8 +202,9 @@ func (m *Model) handleEditorSave(msg editor.EditorSaveMsg) (tea.Model, tea.Cmd) 
 	m.focus = FocusKeyList
 
 	// Save the edited value with CAS if available (unified client supports CAS)
+	// Pass currentKey to preserve TTL (from metadump) and currentCASItem to preserve Flags
 	if m.currentCASItem != nil && m.mcClient != nil {
-		return m, m.saveValueWithCASCmd(msg.Key, msg.Value, m.currentCASItem)
+		return m, m.saveValueWithCASCmd(msg.Key, msg.Value, m.currentCASItem, m.currentKey)
 	}
-	return m, m.saveValueCmd(msg.Key, msg.Value)
+	return m, m.saveValueCmd(msg.Key, msg.Value, m.currentKey, m.currentCASItem)
 }
