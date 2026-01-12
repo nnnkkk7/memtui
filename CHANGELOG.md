@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.0.7](https://github.com/nnnkkk7/memtui/compare/v0.0.6...v0.0.7) - 2026-01-12
+- docs: update readme and add logo by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/29
+- docs: update readme by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/31
+
 ## [v0.0.6](https://github.com/nnnkkk7/memtui/compare/v0.0.5...v0.0.6) - 2026-01-12
 - chore: remove unnecessary config by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/24
 - feat: implement TTL and flags preservation in save commands by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/26
