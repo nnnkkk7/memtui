@@ -1,31 +1,64 @@
-# memtui
+<div align="center">
+  <img src="assets/logo.svg" alt="memtui logo" width="140">
+  <h1>memtui</h1>
+  <p><strong>The missing Memcached GUI for your terminal</strong></p>
+  <p>Browse keys like folders, view JSON beautifully, edit safely with CAS support</p>
 
+  <br>
 
-[![CI](https://github.com/nnnkkk7/memtui/actions/workflows/ci.yaml/badge.svg)](https://github.com/nnnkkk7/memtui/actions/workflows/ci.yaml)
-[![Go Version](https://img.shields.io/badge/Go-1.25.5+-00ADD8?style=flat&logo=go)](https://go.dev/)
-[![Go Report Card](https://goreportcard.com/badge/github.com/nnnkkk7/memtui)](https://goreportcard.com/report/github.com/nnnkkk7/memtui)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+  [![CI](https://github.com/nnnkkk7/memtui/actions/workflows/ci.yaml/badge.svg)](https://github.com/nnnkkk7/memtui/actions/workflows/ci.yaml)
+  [![Go Version](https://img.shields.io/badge/Go-1.25+-00ADD8?style=flat&logo=go)](https://go.dev/)
+  [![Go Report Card](https://goreportcard.com/badge/github.com/nnnkkk7/memtui)](https://goreportcard.com/report/github.com/nnnkkk7/memtui)
+  [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+  <br>
 
-A modern, intuitive TUI (Terminal User Interface) client for Memcached, built with Go.
+  <img src="assets/demo.gif" alt="memtui demo" width="700">
+</div>
 
-![memtui demo](assets/demo.gif)
+---
+
+## Table of Contents
+
+- [Why memtui?](#why-memtui)
+- [Highlights](#highlights)
+- [Comparison](#comparison)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Use Cases](#use-cases)
+- [Keyboard Shortcuts](#keyboard-shortcuts)
+- [Features](#features)
+- [Configuration](#configuration)
+- [Built With](#built-with)
+- [Contributing](#contributing)
+- [Support](#support)
+- [License](#license)
+
+---
+
+## Why memtui?
+
+Ever tried to debug Memcached data? Traditional tools like `telnet` or `nc` make it painful to browse keys, understand data formats, or safely edit values.
+
+**memtui** brings the developer experience you expect from modern tools:
+
+- **No more raw `stats cachedump`** — See all your keys in a tree structure
+- **No more guessing data formats** — Auto-detect JSON, compressed data, binary
+- **No more accidental overwrites** — CAS support prevents data loss
+- **No more context switching** — Stay in your terminal workflow
+
+---
 
 ## Highlights
 
-- **Hierarchical Key Navigation** - Browse keys organized in a tree structure with folder-like grouping
-- **Smart Value Viewer** - Auto-detect and format JSON, with syntax highlighting
-- **VS Code-style Command Palette** - Quick access to all commands with `Ctrl+P`
-- **Real-time Key Filtering** - Fuzzy search through thousands of keys instantly
-- **Safe Operations** - Confirmation dialogs for destructive operations
-- **Vim-style Keybindings** - Navigate with `j`/`k`, familiar to terminal users
+- **Hierarchical Key Navigation** — Browse keys organized in a tree structure with folder-like grouping
+- **Smart Value Viewer** — Auto-detect and format JSON, with syntax highlighting
+- **VS Code-style Command Palette** — Quick access to all commands with `Ctrl+P`
+- **Real-time Key Filtering** — Fuzzy search through thousands of keys instantly
+- **Safe Operations** — Confirmation dialogs for destructive operations
+- **Vim-style Keybindings** — Navigate with `j`/`k`, familiar to terminal users
 
-## Requirements
-
-| Requirement | Version | Note |
-|-------------|---------|------|
-| Go | 1.25+ | For building from source |
-| Memcached | **1.4.31+** | Required for `lru_crawler metadump` support (enabled by default in 1.5+) |
+---
 
 ## Installation
 
@@ -49,6 +82,14 @@ cd memtui
 go build -o memtui ./cmd/memtui
 ```
 
+### Requirements
+
+| Requirement | Version | Note |
+|-------------|---------|------|
+| Go | 1.25+ | For building from source |
+| Memcached | **1.4.31+** | Required for `lru_crawler metadump` support |
+
+---
 
 ## Quick Start
 
@@ -67,9 +108,21 @@ memtui -addr localhost:11211  # Specify address
 memtui --help                 # Show help
 ```
 
+---
+
+## Use Cases
+
+- **Debugging** — Quickly inspect cached values during development
+- **Data Migration** — View and verify data before/after migrations
+- **Cache Analysis** — Understand key naming patterns and data distribution
+- **Incident Response** — Rapidly inspect cache state during outages
+
+---
+
 ## Keyboard Shortcuts
 
-### Navigation
+<details>
+<summary><strong>Navigation</strong></summary>
 
 | Key | Action |
 |-----|--------|
@@ -79,7 +132,10 @@ memtui --help                 # Show help
 | `Tab` | Switch between key list and viewer |
 | `Esc` | Return to key list / Close dialog |
 
-### Commands
+</details>
+
+<details>
+<summary><strong>Commands</strong></summary>
 
 | Key | Action |
 |-----|--------|
@@ -93,7 +149,10 @@ memtui --help                 # Show help
 | `?` | Show help |
 | `q` | Quit |
 
-### In Value Viewer
+</details>
+
+<details>
+<summary><strong>In Value Viewer</strong></summary>
 
 | Key | Action |
 |-----|--------|
@@ -106,13 +165,9 @@ memtui --help                 # Show help
 | `T` | Text view mode |
 | `A` | Auto view mode |
 
-### In Editor
+</details>
 
-| Key       | Action                      |
-|-----------|-----------------------------|
-| `Ctrl+S`  | Save changes                |
-| `Esc`     | Cancel editing              |
-| `Ctrl+F`  | Format JSON (in JSON mode)  |
+---
 
 ## Features
 
@@ -138,14 +193,16 @@ cache:api:posts    ─┘     │     └── session
 
 The viewer automatically detects and formats:
 
-- **JSON** - Pretty-printed with syntax highlighting
-- **Compressed data** - Auto-decompresses gzip/zlib
-- **Binary data** - Displays hex dump
-- **Plain text** - Shows as-is
+- **JSON** — Pretty-printed with syntax highlighting
+- **Compressed data** — Auto-decompresses gzip/zlib/zstd
+- **Binary data** — Displays hex dump
+- **Plain text** — Shows as-is
 
 ### Command Palette
 
 Press `Ctrl+P` to open the VS Code-style command palette for quick access to all features with fuzzy search.
+
+---
 
 ## Configuration
 
@@ -163,24 +220,37 @@ ui:
 ```
 
 CLI flags override config file settings:
+
 ```bash
 memtui -addr localhost:11212  # Overrides connection.default_address
 ```
 
-### Built With
+---
 
-- [Bubble Tea](https://github.com/charmbracelet/bubbletea) - TUI framework based on The Elm Architecture
-- [Bubbles](https://github.com/charmbracelet/bubbles) - Common Bubble Tea components
-- [Lip Gloss](https://github.com/charmbracelet/lipgloss) - Style definitions for terminal apps
-- [gomemcache](https://github.com/bradfitz/gomemcache) - Memcached client for Go
+## Built With
 
+- [Bubble Tea](https://github.com/charmbracelet/bubbletea) — TUI framework based on The Elm Architecture
+- [Bubbles](https://github.com/charmbracelet/bubbles) — Common Bubble Tea components
+- [Lip Gloss](https://github.com/charmbracelet/lipgloss) — Style definitions for terminal apps
+- [gomemcache](https://github.com/bradfitz/gomemcache) — Memcached client for Go
+
+---
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Here's how you can help:
 
+---
+
+## Support
+
+If you find memtui useful, please consider giving it a star on GitHub!
+It helps others discover the project and motivates continued development.
+
+[![Star on GitHub](https://img.shields.io/github/stars/nnnkkk7/memtui?style=social)](https://github.com/nnnkkk7/memtui)
+
+---
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
