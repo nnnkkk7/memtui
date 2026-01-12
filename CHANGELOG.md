@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.0.6](https://github.com/nnnkkk7/memtui/compare/v0.0.5...v0.0.6) - 2026-01-12
+- chore: remove unnecessary config by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/24
+- feat: implement TTL and flags preservation in save commands by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/26
+- feat: enhance UI styling for focused and unfocused panes by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/27
+- chore: update gif by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/28
+
 ## [v0.0.5](https://github.com/nnnkkk7/memtui/compare/v0.0.4...v0.0.5) - 2026-01-11
 - ci: add renovate by @nnnkkk7 in https://github.com/nnnkkk7/memtui/pull/22
 
